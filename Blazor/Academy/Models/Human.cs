@@ -22,6 +22,7 @@ namespace Academy.Models
 		public DateOnly birth_date { get; set; }
 
 		[EmailAddress]
+		//[Required(AllowEmptyStrings =true)]
 		public string? email { get; set; }
 
 		[Phone]
