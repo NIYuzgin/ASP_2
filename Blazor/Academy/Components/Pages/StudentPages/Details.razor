@@ -38,6 +38,17 @@
             <dd class="col-sm-10">@group.group_name</dd>
         </dl>
         <div>
+            <div class="photo-container">
+                @if(student.photo!=null)
+                {
+                <Photo Image="@student.photo" />
+                    
+                }
+            </div>
+
+
+        </div>
+        <div>
             <a href="@($"/students/edit?stud_id={student.stud_id}")">Edit</a> |
             <a href="@($"/students")">Back to List</a>
         </div>
