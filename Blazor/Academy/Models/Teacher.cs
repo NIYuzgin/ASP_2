@@ -20,7 +20,7 @@ namespace Academy.Models
 
 		// Navigation properties:
 
-
+		public ICollection<TeachersDisciplinesRelation> DisciplinesRelatons { get; set; } = default!;
 
 	}
 }

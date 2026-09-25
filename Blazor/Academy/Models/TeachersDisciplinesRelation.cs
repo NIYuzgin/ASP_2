@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Academy.Models
 {
 	[PrimaryKey("teacher", "discipline")]
-	public class TechersDisciplinesRelations
+	public class TeachersDisciplinesRelation
 	{
 		[Column("teacher", TypeName ="SMALLINT")]
 		[ForeignKey(nameof(Teacher))]
