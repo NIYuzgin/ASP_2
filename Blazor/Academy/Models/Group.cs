@@ -28,6 +28,6 @@ namespace Academy.Models
 
 		public Direction Direction { get; set; } = default!;
 
-		ICollection<Student> Students { get; set; } = default!;
+		public ICollection<Student> Students { get; set; } = default!;
 	}
 }
