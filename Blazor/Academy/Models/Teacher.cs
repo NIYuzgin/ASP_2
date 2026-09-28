@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 
@@ -20,7 +21,7 @@ namespace Academy.Models
 
 		// Navigation properties:
 
-		public ICollection<TeachersDisciplinesRelation> DisciplinesRelatons { get; set; } = default!;
+		public ObservableCollection<TeachersDisciplinesRelation> DisciplinesRelatons { get; set; } = default!;
 
 	}
 }
