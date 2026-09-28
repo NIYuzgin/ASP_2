@@ -15,5 +15,12 @@ namespace Academy.Models
 		[Required]
 		[Column(TypeName = "TINYINT")]
 		public int number_of_lessons { get; set; }
+
+
+		// Navigation properties:
+
+		//public ICollection<TeachersDisciplinesRelation> DisciplinesRelatons { get; set; } = default!;
+
+
 	}
 }
