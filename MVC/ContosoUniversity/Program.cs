@@ -46,7 +46,7 @@ using(IServiceScope scope = app.Services.CreateScope())
 		logger.LogError(ex, ex.Message);
 	}
 
-
 }
+
 app.Run();
 

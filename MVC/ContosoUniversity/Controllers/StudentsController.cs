@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 
-namespace ContosoUniversity.Views.Students
+namespace ContosoUniversity.Controllers
 {
     public class StudentsController : Controller
     {
@@ -34,6 +34,9 @@ namespace ContosoUniversity.Views.Students
             }
 
             var student = await _context.Students
+                .Include(s=>s.Enrollments)
+                .ThenInclude(e=>e.Course)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (student == null)
             {

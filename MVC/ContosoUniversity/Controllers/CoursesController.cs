@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 
-namespace ContosoUniversity.Views.Courses
+namespace ContosoUniversity.Controllers
 {
     public class CoursesController : Controller
     {
