@@ -31,4 +31,22 @@ app.MapControllerRoute(
 	.WithStaticAssets();
 
 
+using(IServiceScope scope = app.Services.CreateScope())
+{
+	IServiceProvider provider = scope.ServiceProvider;
+	try
+	{
+		ContosoUniversityContext context = provider.GetRequiredService<ContosoUniversityContext>();
+		DbInitializer.Initialize(context);
+	}
+
+	catch(Exception ex)
+	{
+		ILogger<Program> logger = provider.GetRequiredService<ILogger<Program>>();
+		logger.LogError(ex, ex.Message);
+	}
+
+
+}
 app.Run();
+
