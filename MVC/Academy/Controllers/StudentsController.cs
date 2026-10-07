@@ -22,8 +22,7 @@ namespace Academy.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            var academyContext = _context.Students.Include(s => s.Group);
-            return View(await academyContext.ToListAsync());
+            return View(await _context.Students.ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -35,7 +34,6 @@ namespace Academy.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.Group)
                 .FirstOrDefaultAsync(m => m.stud_id == id);
             if (student == null)
             {
@@ -48,7 +46,6 @@ namespace Academy.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
-            ViewData["group"] = new SelectList(_context.Set<Group>(), "group_id", "group_name");
             return View();
         }
 
@@ -65,7 +62,6 @@ namespace Academy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["group"] = new SelectList(_context.Set<Group>(), "group_id", "group_name", student.group);
             return View(student);
         }
 
@@ -82,7 +78,6 @@ namespace Academy.Controllers
             {
                 return NotFound();
             }
-            ViewData["group"] = new SelectList(_context.Set<Group>(), "group_id", "group_name", student.group);
             return View(student);
         }
 
@@ -118,7 +113,6 @@ namespace Academy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["group"] = new SelectList(_context.Set<Group>(), "group_id", "group_name", student.group);
             return View(student);
         }
 
@@ -131,7 +125,6 @@ namespace Academy.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.Group)
                 .FirstOrDefaultAsync(m => m.stud_id == id);
             if (student == null)
             {

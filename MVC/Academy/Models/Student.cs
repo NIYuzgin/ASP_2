@@ -14,6 +14,7 @@ namespace Academy.Models
 
 
 		//			Navigation properties
+		[NotMapped]
 	public Group Group { get; set; }
 
 	}

@@ -12,9 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Group)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.last_name)
             </th>
@@ -27,7 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.birth_date)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.email)
             </th>
             <th>
@@ -35,16 +33,18 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.photo)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.group)
             </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Group.group_name)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.last_name)
             </td>
@@ -57,7 +57,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.birth_date)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
@@ -65,7 +65,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.photo)
+            </td> *@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.group)
             </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.stud_id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.stud_id">Details</a> |
