@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ContosoUniversity.Models.Enrollment>
+﻿@* @model IEnumerable<ContosoUniversity.Models.Enrollment> *@
+@model PaginatedList<Enrollment>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Grade)
+                Grade
+             @*    @Html.DisplayNameFor(model => model.Grade) *@          
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Course)
+                Course
+               @*  @Html.DisplayNameFor(model => model.Course) *@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student)
+               Student
+                @* @Html.DisplayNameFor(model => model.Student) *@
             </th>
             <th></th>
         </tr>
@@ -45,3 +49,44 @@
 }
     </tbody>
 </table>
+@{
+    string prevDisable = Model.HasPreviousPage ? "" : "disabled";
+    string nextDisable = Model.HasNextPage ? "" : "disabled";
+}
+
+<div class="pagination-controls">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisable">
+        Previous
+
+    </a>
+    <div class="pages">
+        @for (int i = 0; i < Model.TotalPages; i++)
+        {
+            @if (i + 1 == Model.PageIndex)
+            {
+                <a asp-action="Index" asp-route-pageNumber="@(i+1)" class="page current-page">
+                    @(i + 1)
+                </a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-pageNumber="@(i+1)" class="page">
+                    @(i + 1)
+                </a>
+            }
+        }
+
+    </div>
+
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisable">
+        Next
+
+    </a>
+</div>
+
