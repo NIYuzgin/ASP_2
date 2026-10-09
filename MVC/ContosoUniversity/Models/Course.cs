@@ -13,7 +13,9 @@ namespace ContosoUniversity.Models
 
 		// Navigation properties:
 		public ICollection<Enrollment> Enrollments { get; set; }
+		public Department Department { get; set; }
 
+		public ICollection<Instructor> Instructors{ get; set; }
 
 	}
 }
