@@ -1,5 +1,8 @@
-﻿namespace ContosoUniversity.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ContosoUniversity.Models
 {
+	[PrimaryKey(nameof(CourseID), nameof(InstructorID))]
 	public class CourseAssignment
 	{
 
