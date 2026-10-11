@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Academy.Data;
 using Academy.Models;
 
+
 namespace Academy.Controllers
 {
     public class StudentsController : Controller
@@ -20,22 +21,73 @@ namespace Academy.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Students.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int? pageNumber)
         {
-            return View(await _context.Students.ToListAsync());
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null) pageNumber = 1;
+            ViewData["CurrentFilter"] = searchString;
+
+
+            IQueryable<Student> students = from student in _context.Students select student;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where
+                    (
+                    s =>
+                    s.last_name.Contains(searchString) ||
+                    s.first_name.Contains(searchString)
+                    );
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc": students = students.OrderByDescending(s => s.last_name); break;
+                //case "date_desc": students = students.OrderByDescending(s => s.EnrollmentDate); break;
+                //case "Date": students = students.OrderBy(s => s.EnrollmentDate); break;
+                default: students = students.OrderBy(s => s.last_name); break;
+
+            }
+
+            int pageSize = 5;
+            return View
+            (
+                await PaginatedList<Student>.CreateAsync
+                (
+                students.AsNoTracking(),
+                pageNumber ?? 1,
+                pageSize
+                )
+            );
+
         }
 
-        // GET: Students/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+		// GET: Students/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.stud_id == id);
-            if (student == null)
+			//var student = await _context.Students
+			//    .FirstOrDefaultAsync(m => m.stud_id == id);
+
+			var student = await _context.Students
+			   //.Include(s => s.Enrollments)
+			   //.Include(e => e.Course)
+			   .AsNoTracking()
+			   .FirstOrDefaultAsync(m => m.stud_id == id);
+
+			if (student == null)
             {
                 return NotFound();
             }
