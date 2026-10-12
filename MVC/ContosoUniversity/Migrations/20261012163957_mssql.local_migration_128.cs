@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqllocal_migration_525 : Migration
+    public partial class mssqllocal_migration_128 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,7 +83,7 @@ namespace ContosoUniversity.Migrations
                 name: "Instructors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -92,7 +92,7 @@ namespace ContosoUniversity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instructors", x => x.Id);
+                    table.PrimaryKey("PK_Instructors", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Instructors_Courses_CourseID",
                         column: x => x.CourseID,
@@ -118,7 +118,7 @@ namespace ContosoUniversity.Migrations
                         name: "FK_Departments_Instructors_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructors",
-                        principalColumn: "Id");
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -135,7 +135,7 @@ namespace ContosoUniversity.Migrations
                         name: "FK_OfficeAssignments_Instructors_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructors",
-                        principalColumn: "Id",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -182,7 +182,7 @@ namespace ContosoUniversity.Migrations
                 table: "CourseAssignments",
                 column: "InstructorID",
                 principalTable: "Instructors",
-                principalColumn: "Id",
+                principalColumn: "ID",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(

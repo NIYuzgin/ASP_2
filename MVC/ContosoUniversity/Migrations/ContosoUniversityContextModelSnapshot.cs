@@ -114,11 +114,11 @@ namespace ContosoUniversity.Migrations
 
             modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int?>("CourseID")
                         .HasColumnType("int");
@@ -136,7 +136,7 @@ namespace ContosoUniversity.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CourseID");
 

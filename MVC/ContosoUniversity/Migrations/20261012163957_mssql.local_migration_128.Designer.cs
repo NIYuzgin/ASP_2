@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(ContosoUniversityContext))]
-    [Migration("20261009163440_mssql.local_migration_525")]
-    partial class mssqllocal_migration_525
+    [Migration("20261012163957_mssql.local_migration_128")]
+    partial class mssqllocal_migration_128
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,11 +117,11 @@ namespace ContosoUniversity.Migrations
 
             modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int?>("CourseID")
                         .HasColumnType("int");
@@ -139,7 +139,7 @@ namespace ContosoUniversity.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CourseID");
 

@@ -40,7 +40,7 @@ namespace ContosoUniversity.Controllers
             if (id != null)
             {
                 ViewData["InstructorID"] = id.Value;
-                Instructor instructor = viewModel.Instructors.Where (i => i.Id == id.Value).Single();
+                Instructor instructor = viewModel.Instructors.Where (i => i.ID == id.Value).Single();
                 viewModel.Courses=instructor.CourseAssignments.Select(ca => ca.Course);
             }
 
@@ -64,7 +64,7 @@ namespace ContosoUniversity.Controllers
             }
 
             var instructor = await _context.Instructors
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (instructor == null)
             {
                 return NotFound();
@@ -118,7 +118,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,LastName,FirstName,HireDate")] Instructor instructor)
         {
-            if (id != instructor.Id)
+            if (id != instructor.ID)
             {
                 return NotFound();
             }
@@ -132,7 +132,7 @@ namespace ContosoUniversity.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InstructorExists(instructor.Id))
+                    if (!InstructorExists(instructor.ID))
                     {
                         return NotFound();
                     }
@@ -155,7 +155,7 @@ namespace ContosoUniversity.Controllers
             }
 
             var instructor = await _context.Instructors
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (instructor == null)
             {
                 return NotFound();
@@ -181,7 +181,7 @@ namespace ContosoUniversity.Controllers
 
         private bool InstructorExists(int id)
         {
-            return _context.Instructors.Any(e => e.Id == id);
+            return _context.Instructors.Any(e => e.ID == id);
         }
     }
 }
