@@ -46,7 +46,8 @@ namespace ContosoUniversity.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
-            return View();
+			PopulateDepartmentDropDownList();
+			return View();
         }
 
         // POST: Courses/Create
@@ -54,7 +55,7 @@ namespace ContosoUniversity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits, DepartmentID")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +63,8 @@ namespace ContosoUniversity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
+            PopulateDepartmentDropDownList(course.DepartmentID);
             return View(course);
         }
 
@@ -78,7 +81,8 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            return View(course);
+			PopulateDepartmentDropDownList(course.DepartmentID);
+			return View(course);
         }
 
         // POST: Courses/Edit/5
@@ -113,8 +117,26 @@ namespace ContosoUniversity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(course);
+			PopulateDepartmentDropDownList(course.DepartmentID);
+			return View(course);
         }
+
+        void PopulateDepartmentDropDownList(object selectedDepartment = null)
+        {
+            IQueryable<Department> departments =
+                from department in _context.Departments
+                orderby department.Name
+                select department;
+
+            ViewBag.DepartmentID = new SelectList
+                (
+                departments.AsNoTracking(),
+                "DepartmentID",
+                "Name",
+                selectedDepartment
+                );
+        }
+
 
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
