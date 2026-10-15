@@ -9,8 +9,8 @@
 <h4>Instructor</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" style="width:100%">
+    <div>
+        <form asp-action="Edit" style="width:100%; display:flex; justify-content:space-between;">
             <div>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="ID" />
@@ -35,6 +35,11 @@
                     <span asp-validation-for="OfficeAssignment.Location" class="text-danger"></span>
                 </div>
             </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
             <div class="form-group" style="width:70%;">
                @*  <div class="col-md-offset-2 col-md-10"> *@
                    <div>
@@ -66,10 +71,6 @@
                         </tr>
                     </table>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
