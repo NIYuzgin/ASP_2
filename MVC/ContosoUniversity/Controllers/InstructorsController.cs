@@ -123,7 +123,6 @@ namespace ContosoUniversity.Controllers
             return View(instructor);
         }
 
-
         // POST: Instructors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -132,14 +131,16 @@ namespace ContosoUniversity.Controllers
         //public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,HireDate")] Instructor instructor)
         public async Task<IActionResult> Edit(int id, string[] selectedCourses)
         {
-            if (id != null)
-            {
-                return NotFound();
-            }
+            //if (id != null)
+            //{
+            //    return NotFound();
+            //}
 
             Instructor instructor = await _context.Instructors
                                     
                                     .Include(i => i.OfficeAssignment)
+                                    .Include(i => i.CourseAssignments)
+                                        .ThenInclude(ca => ca.Course)
                                     .FirstOrDefaultAsync(i => i.ID == id);
 
             /*if (ModelState.IsValid)
@@ -266,10 +267,24 @@ namespace ContosoUniversity.Controllers
 				return;
 			}
 
+            Course[] allCourses=_context.Courses.ToArray();
+            Course[] courses=new Course[selectedCourses.Length];
+            ICollection<CourseAssignment> courseAssignments = new List<CourseAssignment>();// [selectedCourses.Length];
+            
+            for(int i=0; i<courses.Length; i++)
+            {
+                courses[i] = _context.Courses.Where(c => c.CourseID.ToString() == selectedCourses[i]).First();
+                courseAssignments.Add(new CourseAssignment { CourseID = courses[i].CourseID, InstructorID = instructor.ID });
+                //courseAssignments[i] = new CourseAssignment { CourseID = courses[i].CourseID, InstructorID = instructor.ID };
+            }
+
+            instructor.CourseAssignments = courseAssignments;
+            return;
+
 			HashSet<string> selectedCoursesHS = new HashSet<string>(selectedCourses);
 			HashSet<int> instructorCoursesHS = new HashSet<int>
 				(
-			   instructor.CourseAssignments.Select(c => c.Course.CourseID)
+			        instructor.CourseAssignments.Select(c => c.Course.CourseID)
 				);
 
 			foreach (Course course in _context.Courses)
@@ -285,7 +300,6 @@ namespace ContosoUniversity.Controllers
 								InstructorID = instructor.ID,
 								CourseID = course.CourseID,
 							}
-
 						);
 					}
 					else
@@ -298,10 +312,8 @@ namespace ContosoUniversity.Controllers
 								.FirstOrDefault(i => i.CourseID == course.CourseID);
 							_context.Remove(courseToRemove);
 						}
-
 					}
 			}
-
 		}
 	}
 }
